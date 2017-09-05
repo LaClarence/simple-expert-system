@@ -1,6 +1,6 @@
 package dev.flejne.ia.expert.genericexpertsystem;
 
-public final class FaitEntier extends Fait<Integer> {
+public final class FaitEntier extends FaitUnit<Integer> {
 
     private FaitEntier(
         String nom,
@@ -34,7 +34,7 @@ public final class FaitEntier extends Fait<Integer> {
     }
 
     @Override
-    public FaitGenerique<Integer> avecNiveau(int n)
+    public Fait<Integer> avecNiveau(int n)
     {
         return new FaitEntier(this.getNom(), this.getValeur(),
                 this.getQuestion(), n);

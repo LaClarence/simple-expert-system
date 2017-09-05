@@ -1,7 +1,7 @@
 package dev.flejne.ia.expert.genericexpertsystem;
 
 public final class FaitFactory {
-    private static FaitGenerique<? extends Object> construitFaitBoolean(
+    private static Fait<? extends Object> construitFaitBoolean(
         final String value)
     {
         boolean isTrue = !value.contains("!");
@@ -17,7 +17,7 @@ public final class FaitFactory {
                 "La chaine du fait booleen est invalide!");
     }
 
-    private static FaitGenerique<? extends Object> construitFaitEntier(
+    private static Fait<? extends Object> construitFaitEntier(
         final String value)
     {
         String faitEntier = value.replaceFirst("^\\(", "");
@@ -35,8 +35,8 @@ public final class FaitFactory {
                 "La chaine du fait entier est invalide!");
     }
 
-    static FaitGenerique<?> fromQuestion(
-        FaitGenerique<?> faitAvecQuestion,
+    static Fait<?> fromQuestion(
+        Fait<?> faitAvecQuestion,
         MoteurInferences m)
     {
         String nom = faitAvecQuestion.getNom();
@@ -51,7 +51,7 @@ public final class FaitFactory {
         throw new IllegalArgumentException("Type de fait non gere!");
     }
 
-    static FaitGenerique<? extends Object> fromString(final String value)
+    static Fait<? extends Object> fromString(final String value)
     {
         String fait = value.trim();
         return fait.contains("=") ? construitFaitEntier(fait)

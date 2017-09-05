@@ -33,10 +33,10 @@ public final class MoteurInferences {
     if (premissesConclusion.length != 2) {
       return false;
     }
-    List<FaitGenerique<?>> premisses = Arrays.stream(premissesConclusion[0].split("AND"))
+    List<Fait<?>> premisses = Arrays.stream(premissesConclusion[0].split("AND"))
                                                     .map(FaitFactory::fromString)
                                                     .collect(Collectors.toList());
-    FaitGenerique<?> conclusion = FaitFactory.fromString(premissesConclusion[1].trim());
+    Fait<?> conclusion = FaitFactory.fromString(premissesConclusion[1].trim());
     return this.baseDeRegles.add(new Regle(nom, premisses, conclusion));
   }
 
@@ -66,11 +66,11 @@ public final class MoteurInferences {
    */
   public int estApplicable(Regle regle) {
     int niveauMax = 0;
-    for (FaitGenerique<?> premisse : regle.getPremisses()) {
-      Optional<FaitGenerique<?>> fait = this.baseDeFaits.chercher(premisse.getNom());
+    for (Fait<?> premisse : regle.getPremisses()) {
+      Optional<Fait<?>> fait = this.baseDeFaits.chercher(premisse.getNom());
       if (!fait.isPresent()) {
         if (premisse.hasQuestion()) {
-           FaitGenerique<?> nouveauFait = FaitFactory.fromQuestion(premisse, this);
+           Fait<?> nouveauFait = FaitFactory.fromQuestion(premisse, this);
            this.baseDeFaits.add(nouveauFait);
            fait = Optional.of(nouveauFait);
         } else {
@@ -80,7 +80,7 @@ public final class MoteurInferences {
 
       Optional<Integer> niveauFait = fait.filter(f -> f.getValeur()
                                                        .equals(premisse.getValeur()))
-                                         .map(FaitGenerique::getNiveau);
+                                         .map(Fait::getNiveau);
       
       if (!niveauFait.isPresent()) {
         return NOT_APPLICABLE_RULE;
@@ -96,9 +96,7 @@ public final class MoteurInferences {
     Optional<Regle> opRegle = trouverPremiereRegleApplicable(baseDeReglesLocale);
     while (opRegle.isPresent()) {
       Regle r = opRegle.get();
-      int niveauConclusion = this.niveauMaxDeRegles + 1;
-      FaitGenerique<?> conclusion = r.getConclusion().avecNiveau(niveauConclusion);
-      this.baseDeFaits.add(conclusion);
+      ajouteConclusionDansBaseDeFaits(r);   
       baseDeReglesLocale.remove(r);
       opRegle = trouverPremiereRegleApplicable(baseDeReglesLocale);
     }
@@ -106,7 +104,15 @@ public final class MoteurInferences {
   }
   
 
-  /**
+  private void ajouteConclusionDansBaseDeFaits(Regle r)
+{
+      int niveauConclusion = this.niveauMaxDeRegles + 1;
+      Fait<?> conclusion = r.getConclusion().avecNiveau(niveauConclusion);
+      this.baseDeFaits.add(conclusion);
+    
+} 
+  
+/**
    * Retourne la premiere regle applicalbe parmi la liste de regles.<br>
    * Le niveau Max des regles devient celui de la regle applicable.
    * @param baseDeRegles liste des regles non traités

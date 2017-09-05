@@ -31,17 +31,17 @@ public class App implements Ihm {
 
     private final Scanner scanner = new Scanner(System.in);
 
-    private Comparator<? super FaitGenerique<?>> parNiveauDecroissant()
+    private Comparator<? super Fait<?>> parNiveauDecroissant()
     {
         return (f1, f2) -> -f1.getNiveau().compareTo(f2.getNiveau());
     }
 
     @Override
-    public void afficherFaits(List<FaitGenerique<?>> faits)
+    public void afficherFaits(List<Fait<?>> faits)
     {
         String afficheFaits = "Solution(s) trouvée(s) : \n";
         afficheFaits += faits.stream().filter(f -> f.getNiveau() != 0)
-                .sorted(parNiveauDecroissant()).map(FaitGenerique::toString)
+                .sorted(parNiveauDecroissant()).map(Fait::toString)
                 .collect(Collectors.joining("\n"));
         System.out.println(afficheFaits);
 

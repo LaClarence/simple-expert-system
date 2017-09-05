@@ -3,7 +3,7 @@ package dev.flejne.ia.expert.genericexpertsystem;
 import java.util.List;
 
 public interface Ihm {
-  void afficherFaits(List<FaitGenerique<?>> faits);
+  void afficherFaits(List<Fait<?>> faits);
 
   void afficherRegles(List<Regle> regles);
 

@@ -4,9 +4,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Regle {
-  private final FaitGenerique<?> conclusion;
+  private final Fait<?> conclusion;
   private final String nom;
-  private final List<FaitGenerique<?>> premisses;
+  private final List<Fait<?>> premisses;
 
   public Regle(Regle regle) {
     this.nom = regle.getNom();
@@ -14,13 +14,13 @@ public class Regle {
     this.conclusion = regle.getConclusion();
   }
 
-  public Regle(String nom, List<FaitGenerique<?>> premisses, FaitGenerique<?> conclusion) {
+  public Regle(String nom, List<Fait<?>> premisses, Fait<?> conclusion) {
     this.nom = nom;
     this.premisses = premisses;
     this.conclusion = conclusion;
   }
 
-  public FaitGenerique<?> getConclusion() {
+  public Fait<?> getConclusion() {
     return this.conclusion;
   }
 
@@ -28,7 +28,7 @@ public class Regle {
     return this.nom;
   }
 
-  public List<FaitGenerique<?>> getPremisses() {
+  public List<Fait<?>> getPremisses() {
     return this.premisses;
   }
 
@@ -36,7 +36,7 @@ public class Regle {
   public String toString() {
     String regle = this.nom + " : IF (";
     regle += this.premisses.stream()
-                           .map(FaitGenerique::toString)
+                           .map(Fait::toString)
                            .collect(Collectors.joining(" AND "));
     return regle + ") THEN " + this.conclusion.toString();
   }

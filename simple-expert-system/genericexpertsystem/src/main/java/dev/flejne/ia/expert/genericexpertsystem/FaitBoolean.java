@@ -1,6 +1,6 @@
 package dev.flejne.ia.expert.genericexpertsystem;
 
-public final class FaitBoolean extends Fait<Boolean> {
+public final class FaitBoolean extends FaitUnit<Boolean> {
 
     private FaitBoolean(
         String nom,
@@ -28,7 +28,7 @@ public final class FaitBoolean extends Fait<Boolean> {
     }
 
     @Override
-    public FaitGenerique<Boolean> avecNiveau(int n)
+    public Fait<Boolean> avecNiveau(int n)
     {
         return new FaitBoolean(this.getNom(), this.getValeur(),
                 this.getQuestion(), n);

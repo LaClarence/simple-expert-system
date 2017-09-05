@@ -6,24 +6,24 @@ import java.util.Objects;
 import java.util.Optional;
 
 public final class BaseDeFaits {
-  private final List<FaitGenerique<?>> faits;
+  private final List<Fait<?>> faits;
 
   public BaseDeFaits() {
     this.faits = new ArrayList<>();
   }
 
-  public boolean add(FaitGenerique<?> fait) {
+  public boolean add(Fait<?> fait) {
     Objects.requireNonNull(fait);
     return this.faits.add(fait);
   }
 
-  public Optional<FaitGenerique<?>> chercher(String nom) {
+  public Optional<Fait<?>> chercher(String nom) {
     return this.faits.stream()
                      .filter(f -> f.getNom().equals(nom))
                      .findFirst();
   }
 
-  public List<FaitGenerique<?>> getFaits() {
+  public List<Fait<?>> getFaits() {
     return this.faits;
   }
 
