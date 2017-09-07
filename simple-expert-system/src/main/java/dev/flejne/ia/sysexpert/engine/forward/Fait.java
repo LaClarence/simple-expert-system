@@ -1,4 +1,4 @@
-package dev.flejne.ia.expert.genericexpertsystem;
+package dev.flejne.ia.sysexpert.engine.forward;
 
 public interface Fait<T> {
 
