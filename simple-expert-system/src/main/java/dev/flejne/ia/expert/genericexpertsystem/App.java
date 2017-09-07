@@ -23,6 +23,8 @@ public class App implements Ihm {
             "R10: IF (Parallélogramme AND Cotes Egaux=4(Combien la figure a-t-elle de côtés égaux?)) THEN Losange",
             "R11: IF (Rectangle AND Losange) THEN Carré");
 
+    private static final String TRUE_REGEXP =  "[YyOo]|[Oo]ui|[Yy]es|[Tt]rue";
+    
     public static void main(String[] args)
     {
         App app = new App();
@@ -72,8 +74,8 @@ public class App implements Ihm {
     @Override
     public boolean demanderValeurBoolean(String question)
     {
-        return demanderValeur(question, () -> this.scanner.nextBoolean(),
-                "A boolean is expected!");
+        return demanderValeur(question, () -> this.scanner.next().matches(TRUE_REGEXP),
+                " A boolean is expected!");
     }
 
     @Override
