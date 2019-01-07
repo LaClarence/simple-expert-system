@@ -60,7 +60,7 @@ public class App implements Ihm {
         Supplier<T> supplier,
         String errorMessage)
     {
-        System.out.print(question);
+        System.out.print("Question: "+question+" ");
         while (true) {
             try {
                 return supplier.get();

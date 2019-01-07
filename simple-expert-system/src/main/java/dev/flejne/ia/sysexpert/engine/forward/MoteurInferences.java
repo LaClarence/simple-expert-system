@@ -123,7 +123,7 @@ public final class MoteurInferences {
       int niveau = estApplicable(r);
       if (niveau != NOT_APPLICABLE_RULE) {
         this.niveauMaxDeRegles = niveau;
-        System.out.println("niveau Max regale = "+ this.niveauMaxDeRegles);
+        System.out.println("niveau Max regle = "+ this.niveauMaxDeRegles);
         return Optional.of(r);
       }
     }

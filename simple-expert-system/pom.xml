@@ -28,4 +28,25 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+  
+  <build>
+
+  <plugins>
+    <plugin>
+      <!-- Build an executable JAR -->
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-jar-plugin</artifactId>
+      <version>3.1.1</version>
+      <configuration>
+        <archive>
+          <manifest>
+            <mainClass>dev.flejne.ia.sysexpert.engine.forward.App</mainClass>
+          </manifest>
+        </archive>
+      </configuration>
+    </plugin>
+  </plugins>
+
+</build>
+
 </project>
