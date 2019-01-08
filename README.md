@@ -1,23 +1,19 @@
 
 
-# Simple expert system
+# Simple expert system demo
 
-[![Java](https://img.shields.io/badge/java-%3E%208-brightgreen.svg)]
-![Maven](https://img.shields.io/badge/maven-%3E%3D3.5.4-br.svg)]]
-
+![Maven](https://img.shields.io/badge/maven-%3E%3D3.5.4-br.svg)
+![Java](https://img.shields.io/badge/java-%3E%3D11-brightgreen.svg)
+![JUnit](https://img.shields.io/badge/junit5-5.3.0-brightgreen.svg)
 
 ## Overview
 
-This code is based on the example provided by Virginie Mathivet on it's book:
+The code is based on the example provided by Virginie Mathivet on it's book:
 
-__L'Intelligence Artificielle pour les développeurs__
-__Concepts et implémentations en Java__
+    __L'Intelligence Artificielle pour les développeurs__
 
+    __Concepts et implémentations en Java__
 
-## Requirements
-
-    * jdk version must be >8.
-    * mvn version >= 3.5.4
 
 ## Build the project and launch it
 
