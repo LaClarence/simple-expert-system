@@ -2,6 +2,10 @@
 
 # Simple expert system
 
+[![Java](https://img.shields.io/badge/java-%3E%208-brightgreen.svg)]
+![Maven](https://img.shields.io/badge/maven-%3E%3D3.5.4-br.svg)]]
+
+
 ## Overview
 
 This code is based on the example provided by Virginie Mathivet on it's book:
