@@ -1,0 +1,83 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>dev.flejne</groupId>
+	<artifactId>simple-expert-system</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<name>simple-expert-system</name>
+
+	<properties>
+		<jar.mainclass>dev.flejne.ia.sysexpert.App</jar.mainclass>
+		<java.version>11</java.version>
+
+		<!-- Third part dependencies -->
+		<junit5.version>5.5.2</junit5.version>
+
+		<!-- Encoding -->
+		<file.encoding>UTF8</file.encoding>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+		<!-- Maven Plugin version -->
+		<maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+		<version.maven-toolchains-plugin>3.0.0</version.maven-toolchains-plugin>
+
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
+			<version>${junit5.version}</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+
+			<plugin>
+				<!-- Build an executable JAR -->
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${maven-compiler-plugin.version}</version>
+				<configuration>
+					<release>${java.version}</release>
+					<archive>
+						<manifest>
+							<mainClass>${jar.mainclass}</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-toolchains-plugin</artifactId>
+				<version>${version.maven-toolchains-plugin}</version>
+				<configuration>
+					<toolchains>
+						<jdk>
+							<version>${java-version}</version>
+						</jdk>
+					</toolchains>
+				</configuration>
+
+				<executions>
+					<execution>
+						<goals>
+							<goal>toolchain</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			</plugins>
+		</pluginManagement>
+	</build>
+
+</project>
