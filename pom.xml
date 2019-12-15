@@ -20,11 +20,14 @@
 		<!-- Encoding -->
 		<file.encoding>UTF8</file.encoding>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<project.reporting.outputEncoding>UTF-8
+		</project.reporting.outputEncoding>
 
 		<!-- Maven Plugin version -->
 		<maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
-		<version.maven-toolchains-plugin>3.0.0</version.maven-toolchains-plugin>
+		<maven-toolchains-plugin.version>3.0.0
+		</maven-toolchains-plugin.version>
+		<maven-jar-plugin.version>3.2.0</maven-jar-plugin.version>
 
 	</properties>
 
@@ -41,40 +44,48 @@
 		<pluginManagement>
 			<plugins>
 
-			<plugin>
-				<!-- Build an executable JAR -->
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>${maven-compiler-plugin.version}</version>
-				<configuration>
-					<release>${java.version}</release>
-					<archive>
-						<manifest>
-							<mainClass>${jar.mainclass}</mainClass>
-						</manifest>
-					</archive>
-				</configuration>
-			</plugin>
+				<plugin>
+					<!-- Build an executable JAR -->
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>${maven-compiler-plugin.version}</version>
+					<configuration>
+						<release>${java.version}</release>
+					</configuration>
+				</plugin>
 
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-toolchains-plugin</artifactId>
-				<version>${version.maven-toolchains-plugin}</version>
-				<configuration>
-					<toolchains>
-						<jdk>
-							<version>${java-version}</version>
-						</jdk>
-					</toolchains>
-				</configuration>
+				<plugin>
+					<artifactId>maven-jar-plugin</artifactId>
+					<version>${maven-jar-plugin.version}</version>
+					<configuration>
+						<archive>
+							<addMavenDescriptor>false</addMavenDescriptor>
+							<manifest>
+								<mainClass>${jar.mainclass}</mainClass>
+							</manifest>
+						</archive>
+					</configuration>
+				</plugin>
 
-				<executions>
-					<execution>
-						<goals>
-							<goal>toolchain</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-toolchains-plugin</artifactId>
+					<version>${maven-toolchains-plugin.version}</version>
+					<configuration>
+						<toolchains>
+							<jdk>
+								<version>${java-version}</version>
+							</jdk>
+						</toolchains>
+					</configuration>
+
+					<executions>
+						<execution>
+							<goals>
+								<goal>toolchain</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
 
 			</plugins>
 		</pluginManagement>
