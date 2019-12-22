@@ -1,0 +1,11 @@
+R1:  IF (Ordre=3(Quel est l'ordre?)) THEN Triangle
+R2:  IF (Triangle AND Angle Droit(La figure a-t-elle au moins un angle droit?)) THEN Triangle Rectangle
+R3:  IF (Triangle Cotes Egaux=2(Combien la figure a-t-elle de côtés égaux?)) THEN Triangle Isocèle
+R4:  IF (Triangle Rectangle AND Triangle Isocèle) THEN Triangle Rectangle Isocèle
+R5:  IF (Triangle AND Triangle Cotes Egaux=3(Combien la figure a-t-elle de côtés égaux?)) THEN Triangle Equilateral
+R6:  IF (Ordre=4(Quel est l'ordre?)) THEN Quadrilatère
+R7:  IF (Quadrilatère AND Cotes Parallèles=2(Combien la figure a-t-elle de côtés parallèles entre eux - 0, 2 ou 4?)) THEN Trapeze
+R8:  IF (Quadrilatère AND Cotes Parallèles=4(Combien la figure a-t-elle de côtés parallèles entre eux - 0, 2 ou 4?)) THEN Parallélogramme
+R9:  IF (Parallélogramme AND Angle Droit(La figure a-t-elle au moins un angle droit?)) THEN Rectangle
+R10: IF (Parallélogramme AND Cotes Egaux=4(Combien la figure a-t-elle de côtés égaux?)) THEN Losange
+R11: IF (Rectangle AND Losange) THEN Carré

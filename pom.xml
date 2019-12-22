@@ -11,7 +11,7 @@
 	<name>simple-expert-system</name>
 
 	<properties>
-		<jar.mainclass>dev.flejne.ia.sysexpert.App</jar.mainclass>
+		<jar.mainclass>dev.flejne.demo.sysexpert.App</jar.mainclass>
 		<java.version>11</java.version>
 
 		<!-- Third part dependencies -->

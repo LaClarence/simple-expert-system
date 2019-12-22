@@ -1,8 +1,8 @@
-package dev.flejne.ia.sysexpert;
+package dev.flejne.sysexpert.fact;
 
-public final class FaitEntier extends FaitUnit<Integer> {
+public final class IntegerFact extends GenericFact<Integer> {
 
-    private FaitEntier(
+    private IntegerFact(
         String nom,
         Integer valeur,
         String question,
@@ -11,7 +11,7 @@ public final class FaitEntier extends FaitUnit<Integer> {
         super(nom, valeur, question, niveau);
     }
 
-    public FaitEntier(String nom, Integer valeur, String question)
+    public IntegerFact(String nom, Integer valeur, String question)
     {
         this(nom, valeur, question, 0);
     }
@@ -22,7 +22,7 @@ public final class FaitEntier extends FaitUnit<Integer> {
      * @param nom
      * @param valeur
      */
-    public FaitEntier(String nom, Integer valeur)
+    public IntegerFact(String nom, Integer valeur)
     {
         this(nom, valeur, null, 0);
     }
@@ -30,13 +30,13 @@ public final class FaitEntier extends FaitUnit<Integer> {
     @Override
     public String toString()
     {
-        return getNom() + "=" + getValeur() + " (" + getNiveau() + ")";
+        return name() + "=" + value() + " (" + level() + ")";
     }
 
     @Override
-    public Fait<Integer> avecNiveau(int n)
+    public Fact<Integer> handleLevel(int n)
     {
-        return new FaitEntier(this.getNom(), this.getValeur(),
-                this.getQuestion(), n);
+        return new IntegerFact(this.name(), this.value(),
+                this.questionMe(), n);
     }
 }

@@ -1,7 +1,9 @@
-package dev.flejne.ia.sysexpert;
+package dev.flejne.sysexpert.fact;
 
-public final class FaitFactory {
-    private static Fait<? extends Object> construitFaitBoolean(
+import dev.flejne.sysexpert.app.UserInterface;
+
+public final class Factory {
+    private static Fact<?> construitFaitBoolean(
         final String value)
     {
         boolean isTrue = !value.contains("!");
@@ -11,13 +13,13 @@ public final class FaitFactory {
         int nbTerms = nomQuestion.length;
         if (nbTerms >= 1) {
             String question = (nbTerms == 2) ? nomQuestion[1].trim() : null;
-            return new FaitBoolean(nomQuestion[0].trim(), isTrue, question);
+            return new BooleanFact(nomQuestion[0].trim(), isTrue, question);
         }
         throw new IllegalArgumentException(
                 "La chaine du fait booleen est invalide!");
     }
 
-    private static Fait<? extends Object> construitFaitEntier(
+    private static Fact<?> construitFaitEntier(
         final String value)
     {
         String faitEntier = value.replaceFirst("^\\(", "");
@@ -27,7 +29,7 @@ public final class FaitFactory {
             String question = (nbTerms == 3) ? nomValeurQuestion[2].trim()
                     : null;
             Integer entier = Integer.decode(nomValeurQuestion[1]);
-            return new FaitEntier(nomValeurQuestion[0].trim(), entier,
+            return new IntegerFact(nomValeurQuestion[0].trim(), entier,
                     question);
 
         }
@@ -35,30 +37,30 @@ public final class FaitFactory {
                 "La chaine du fait entier est invalide!");
     }
 
-    static Fait<?> fromQuestion(
-        Fait<?> faitAvecQuestion,
-        MoteurInferences m)
+    public static Fact<?> fromQuestion(
+        Fact<?> faitAvecQuestion,
+        UserInterface cli)
     {
-        String nom = faitAvecQuestion.getNom();
-        String question = faitAvecQuestion.getQuestion();
-        if (faitAvecQuestion instanceof FaitEntier) {
-            int valeur = m.demanderValeurEntiere(question);
-            return new FaitEntier(nom, valeur);
-        } else if (faitAvecQuestion instanceof FaitBoolean) {
-            boolean valeur = m.demanderValeurBoolean(question);
-            return new FaitBoolean(nom, valeur);
+        String nom = faitAvecQuestion.name();
+        String question = faitAvecQuestion.questionMe();
+        if (faitAvecQuestion instanceof IntegerFact) {
+            int valeur = cli.demanderValeurEntiere(question);
+            return new IntegerFact(nom, valeur);
+        } else if (faitAvecQuestion instanceof BooleanFact) {
+            boolean valeur = cli.demanderValeurBoolean(question);
+            return new BooleanFact(nom, valeur);
         }
         throw new IllegalArgumentException("Type de fait non gere!");
     }
 
-    static Fait<? extends Object> fromString(final String value)
+    public static Fact<? extends Object> fromString(final String value)
     {
         String fait = value.trim();
         return fait.contains("=") ? construitFaitEntier(fait)
                 : construitFaitBoolean(fait);
     }
 
-    private FaitFactory()
+    private Factory()
     {
     }
 }
