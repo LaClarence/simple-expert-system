@@ -1,111 +1,70 @@
 package dev.flejne.sysexpert.app;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Supplier;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
-import dev.flejne.sysexpert.fact.Fact;
-import dev.flejne.sysexpert.fact.Factory;
-import dev.flejne.sysexpert.fact.Facts;
-import dev.flejne.sysexpert.rule.Rule;
-import dev.flejne.sysexpert.rule.Rules;
+import dev.flejne.sysexpert.client.UserInterface;
+import dev.flejne.sysexpert.domain.Factory;
+import dev.flejne.sysexpert.domain.fact.Fact;
+import dev.flejne.sysexpert.domain.rule.Rule;
 
 public final class InferencesEngine {
 
-	private final Facts facts;
-	private final Rules rules;
 	private final UserInterface cli;
-	private int niveauMaxDeRegles;
 
 	public InferencesEngine(final UserInterface userInterface) {
 		this.cli = userInterface;
-		this.facts = new Facts();
-		this.rules = new Rules();
-		this.niveauMaxDeRegles = 0;
-	}
-
-	private boolean ajouterRegle(String newRule) {
-		String[] splitted = newRule.split(":");
-		if (splitted.length != 2) {
-			return false;
-		}
-		String nom = splitted[0].trim();
-		String regle = splitted[1].trim().replaceFirst("^IF", "");
-		String[] premissesConclusion = regle.split("THEN");
-		if (premissesConclusion.length != 2) {
-			return false;
-		}
-		List<Fact<?>> premisses = Arrays
-				.stream(premissesConclusion[0].split("AND"))
-				.map(Factory::fromString)
-				.collect(Collectors.toList());
-		Fact<?> conclusion = Factory.fromString(premissesConclusion[1].trim());
-		return this.rules.add(new Rule(nom, premisses, conclusion));
-	}
-
-	public boolean addRules(Supplier<Stream<String>> nouvellesRegles) {
-		return nouvellesRegles.get()
-				.map(this::ajouterRegle)
-				.reduce(true, (r1, r2) -> r1 && r2);
 	}
 
 	/**
-	 * Test si une regle provenant d'une base de regles est applicable
+	 * Si la régle concernée est applicable, la conclusion de la régle est ajoutée à la base
+	 * de fait. Sinon on retourne faux
 	 *
-	 * @param regle de la base de regles
-	 * @return le niveau de la regle sinon -1 lorsque:<br>
-	 *         <li>la regle ne peut pas s'appliquer
-	 *         <li>la valeur du fait de la base de faits ou qui vient d'être creer
-	 *         ne correspond pas avec la valeur du fait de la regle
+	 * @param facts la base de faits courante
+	 * @param rule la régle à considérer
+	 * @return True lorsque la régle est applicable sinon False
 	 */
-	public boolean isApplicable(Rule regle) {
-		for (Fact<?> premisse : regle.premisses()) {
-			Optional<Fact<?>> fait = this.facts.chercher(premisse.name());
-			if (!fait.isPresent()) {
-				if (premisse.hasQuestion()) {
-					Fact<?> nouveauFait = Factory.fromQuestion(premisse, this.cli);
-					this.facts.add(nouveauFait);
-					fait = Optional.of(nouveauFait);
+	public boolean isApplicable(List<Fact> facts, Rule rule) {
+		int maxLevel = -1;
+		for (var premise : rule.premises()) {
+			var factFound = facts.stream().filter(f -> f.name().equals(premise.name())).findFirst();
+			if (factFound.isEmpty()) {
+				if (premise.hasQuestion()) {
+					factFound = Optional.of(Factory.fromQuestion(premise, this.cli));
+					facts.add(factFound.get());
 				} else {
 					return false;
 				}
 			}
 
-			Optional<Integer> niveauFait = fait.filter(f -> f.value().equals(premisse.value()))
-					.map(Fact::level);
-
-			if (!niveauFait.isPresent()) {
+			if (!factFound.get().value().equals(premise.value())) {
 				return false;
 			}
-			this.niveauMaxDeRegles = Math.max(0, niveauFait.get());
+
+			maxLevel = Math.max(maxLevel, factFound.get().level());
 		}
+		int levelOfConclusion = maxLevel + 1;
+		var conclusion = rule.conclusion().updateLevel(levelOfConclusion);
+		facts.add(conclusion);
+		
 		return true;
 	}
 
-	public void solve() {
-		Rules baseDeReglesLocale = new Rules(this.rules);
-		this.rules.clear();
-		Optional<Rule> opRegle = baseDeReglesLocale.firstApplicableRule(this::isApplicable);
-		while (opRegle.isPresent()) {
-			Rule r = opRegle.get();
-			ajouteConclusionDansBaseDeFaits(r);
-			baseDeReglesLocale.remove(r);
-			opRegle = baseDeReglesLocale.firstApplicableRule(this::isApplicable);
-		}
-
-		System.out.println(this.facts);
-		System.out.println("** Résolution terminés. **");
-
-	}
-
-	private void ajouteConclusionDansBaseDeFaits(Rule r) {
-		int niveauConclusion = this.niveauMaxDeRegles + 1;
-		Fact<?> conclusion = r.conclusiveFact().handleLevel(niveauConclusion);
-		this.facts.add(conclusion);
-
+	public List<Fact> resolve(List<Rule> rules) {
+		var facts = new ArrayList<Fact>();
+		boolean isRuleApplicable =false;
+		do {
+			for (var rule : rules) {
+				isRuleApplicable = isApplicable(facts, rule);
+				if (isRuleApplicable) {
+					rules.remove(rule);
+					break;
+				}
+			}
+		} while (isRuleApplicable);
+		return facts;
+		
 	}
 
 }

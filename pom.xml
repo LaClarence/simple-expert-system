@@ -4,14 +4,14 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>dev.flejne</groupId>
-	<artifactId>simple-expert-system</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<artifactId>sysexpert</artifactId>
+	<version>1.0-DEMO</version>
 	<packaging>jar</packaging>
 
 	<name>simple-expert-system</name>
 
 	<properties>
-		<jar.mainclass>dev.flejne.demo.sysexpert.App</jar.mainclass>
+		<jar.mainclass>dev.flejne.sysexpert.app.App</jar.mainclass>
 		<java.version>11</java.version>
 
 		<!-- Third part dependencies -->
@@ -25,8 +25,7 @@
 
 		<!-- Maven Plugin version -->
 		<maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
-		<maven-toolchains-plugin.version>3.0.0
-		</maven-toolchains-plugin.version>
+		<maven-toolchains-plugin.version>3.0.0</maven-toolchains-plugin.version>
 		<maven-jar-plugin.version>3.2.0</maven-jar-plugin.version>
 
 	</properties>

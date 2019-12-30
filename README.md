@@ -27,7 +27,7 @@ Build the jar with the following command:
 
 ```
 mvn package
-java -jar target/simple-expert-system-0.0.1-SNAPSHOT.jar
+java -jar target/sysexpert-1.0-DEMO.jar -Drules ./src/main/resources/shapes.rules
 ```
 
 So you will have some questions (in french) for which the program should

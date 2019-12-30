@@ -1,4 +1,4 @@
-package dev.flejne.ia.sysexpert.engine.forward;
+package dev.flejne.sysexpert.app;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 

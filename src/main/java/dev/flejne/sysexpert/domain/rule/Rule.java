@@ -1,28 +1,28 @@
-package dev.flejne.sysexpert.rule;
+package dev.flejne.sysexpert.domain.rule;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-import dev.flejne.sysexpert.fact.Fact;
+import dev.flejne.sysexpert.domain.fact.Fact;
 
 public class Rule {
-	private final Fact<?> conclusion;
+	private final Fact conclusion;
 	private final String name;
-	private final List<Fact<?>> premisses;
+	private final List<Fact> premises;
 
 	public Rule(Rule rule) {
 		this.name = rule.name();
-		this.premisses = rule.premisses();
-		this.conclusion = rule.conclusiveFact();
+		this.premises = rule.premises();
+		this.conclusion = rule.conclusion();
 	}
 
-	public Rule(String name, List<Fact<?>> premisses, Fact<?> conclusion) {
+	public Rule(String name, List<Fact> premises, Fact conclusion) {
 		this.name = name;
-		this.premisses = premisses;
+		this.premises = premises;
 		this.conclusion = conclusion;
 	}
 
-	public Fact<?> conclusiveFact() {
+	public Fact conclusion() {
 		return this.conclusion;
 	}
 
@@ -30,17 +30,18 @@ public class Rule {
 		return this.name;
 	}
 
-	public List<Fact<?>> premisses() {
-		return this.premisses;
+	public List<Fact> premises() {
+		return this.premises;
 	}
 
 	@Override
 	public String toString() {
 		String regle = this.name + " : IF (";
-		regle += this.premisses
+		regle += this.premises
 				.stream()
 				.map(Fact::toString)
 				.collect(Collectors.joining(" AND "));
 		return regle + ") THEN " + this.conclusion.toString();
 	}
+
 }
