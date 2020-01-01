@@ -8,7 +8,7 @@
 
 ## Overview
 
-The code is based on the example provided by Virginie Mathivet from it's book:
+The code is based on the Export System example provided by Virginie Mathivet from her book:
 
     __L'Intelligence Artificielle pour les développeurs__
     __Concepts et implémentations en Java__
@@ -16,19 +16,20 @@ The code is based on the example provided by Virginie Mathivet from it's book:
 
 ## Build the project and launch it
 
-Check that everythink is ok with maven
-
+Check if everythink is correct with maven
 ```
 mvn verify
 ```
 
-
 Build the jar with the following command:
-
 ```
 mvn package
+```
+
+Launch the demo using the following command:
+```
 java -jar target/sysexpert-1.0-DEMO.jar -Drules ./src/main/resources/shapes.rules
 ```
 
-So you will have some questions (in french) for which the program should
-guess a shape 
+Then some questions in french should be asking to make the program infers the
+shape.
