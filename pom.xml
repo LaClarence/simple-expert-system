@@ -5,7 +5,7 @@
 
 	<groupId>dev.flejne</groupId>
 	<artifactId>sysexpert</artifactId>
-	<version>1.0-DEMO</version>
+	<version>1.1-DEMO</version>
 	<packaging>jar</packaging>
 
 	<name>simple-expert-system</name>
