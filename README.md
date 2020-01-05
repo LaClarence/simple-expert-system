@@ -1,14 +1,15 @@
 
 
-# Simple Expert System
+# Expert System Demo
 
 ![Maven](https://img.shields.io/badge/maven-%3E%3D3.8.1-br.svg)
 ![Java](https://img.shields.io/badge/java-%3E%3D13-brightgreen.svg)
 ![JUnit](https://img.shields.io/badge/junit5-5.5.2-brightgreen.svg)
 
+
 ## Overview
 
-The code is based on the Export System example provided by Virginie Mathivet from her book:
+The code is based on the example of Expert System described by Virginie Mathivet in her book:
 
     __L'Intelligence Artificielle pour les développeurs__
     __Concepts et implémentations en Java__
@@ -16,7 +17,9 @@ The code is based on the Export System example provided by Virginie Mathivet fro
 
 ## Build the project and launch it
 
-Check if everythink is correct with maven
+To use Maven the __toolchain.xml__ file must be defined.
+
+Check that if everythink is correct with maven
 ```
 mvn verify
 ```

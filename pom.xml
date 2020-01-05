@@ -11,6 +11,7 @@
 	<name>simple-expert-system</name>
 
 	<properties>
+		<jar.packageName>dev.flejne.sysexpert</jar.packageName>
 		<jar.mainclass>dev.flejne.sysexpert.app.App</jar.mainclass>
 		<java.version>13</java.version>
 
@@ -59,8 +60,12 @@
 						<archive>
 							<addMavenDescriptor>false</addMavenDescriptor>
 							<manifest>
+								<packageName>${jar.packageName}</packageName>
 								<mainClass>${jar.mainclass}</mainClass>
 							</manifest>
+							<manifestEntries>
+								<Multi-Release>true</Multi-Release>
+							</manifestEntries>
 						</archive>
 					</configuration>
 				</plugin>
@@ -72,11 +77,10 @@
 					<configuration>
 						<toolchains>
 							<jdk>
-								<version>${java-version}</version>
+								<version>[${java.version},)</version>
 							</jdk>
 						</toolchains>
 					</configuration>
-
 					<executions>
 						<execution>
 							<goals>
@@ -84,10 +88,19 @@
 							</goals>
 						</execution>
 					</executions>
+
 				</plugin>
 
 			</plugins>
 		</pluginManagement>
+
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-toolchains-plugin</artifactId>
+			</plugin>
+		</plugins>
+
 	</build>
 
 </project>
