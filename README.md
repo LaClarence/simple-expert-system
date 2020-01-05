@@ -3,7 +3,7 @@
 # Simple Expert System
 
 ![Maven](https://img.shields.io/badge/maven-%3E%3D3.8.1-br.svg)
-![Java](https://img.shields.io/badge/java-%3E%3D11-brightgreen.svg)
+![Java](https://img.shields.io/badge/java-%3E%3D13-brightgreen.svg)
 ![JUnit](https://img.shields.io/badge/junit5-5.5.2-brightgreen.svg)
 
 ## Overview

@@ -14,12 +14,12 @@ import java.util.stream.Stream;
 
 import dev.flejne.sysexpert.Output;
 import dev.flejne.sysexpert.domain.Factory;
-import dev.flejne.sysexpert.domain.rule.Rule;
+import dev.flejne.sysexpert.domain.Rule;
 
 public final class RulesResource {
 
 	public static List<Rule> loadRules() {
-		return shapes().get().map(Factory::newfromRuleExpression).collect(Collectors.toList());
+		return shapes().get().map(Factory::buildRule).collect(Collectors.toList());
 	}
 
 	private static Supplier<Stream<String>> shapes() {

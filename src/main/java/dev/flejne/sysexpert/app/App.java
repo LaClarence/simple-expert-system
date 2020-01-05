@@ -5,7 +5,7 @@ import java.util.stream.Collectors;
 
 import dev.flejne.sysexpert.Output;
 import dev.flejne.sysexpert.client.UserInterface;
-import dev.flejne.sysexpert.domain.fact.Fact;
+import dev.flejne.sysexpert.domain.Fact;
 
 public final class App {
 
@@ -14,15 +14,15 @@ public final class App {
 	}
 
 	public static void main(String[] args) {
-		var userInterface = new UserInterface();
-		InferencesEngine engine = new InferencesEngine(userInterface);
 		var rules = RulesResource.loadRules();
+		var cli = new UserInterface();
+		var engine = new InferencesEngine(cli::requestUserValue);
 		var facts = engine.resolve(rules);
 		Output.log.info(() -> "Facts: " + toString(facts));
 	}
 
 	private static String toString(List<Fact> facts) {
-		String solutions = "Found solution(s) are : \n";
+		var solutions = "Found solution(s) are : \n";
 		return solutions + facts.stream()
 			.filter(Fact::positiveLevel)
 			.sorted(Fact.byDecreasingLevel())

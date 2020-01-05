@@ -7,8 +7,9 @@ import java.util.function.Supplier;
 import java.util.regex.Pattern;
 
 import dev.flejne.sysexpert.Output;
+import dev.flejne.sysexpert.domain.Fact.ValueType;
 
-public final class UserInterface {
+public final class UserInterface{
 
 	private static final Pattern TRUE_REGEXP = Pattern.compile("[YyOo]|[Oo]ui|[Yy]es|[Tt]rue");
 	private static final int MAX_USER_TRY = 6;
@@ -29,7 +30,7 @@ public final class UserInterface {
 		throw new IllegalStateException("User input reach maximun error alllowed!");
 	}
 
-	public boolean requestBooleanValue(String question) {
+	private boolean requestBooleanValue(String question) {
 		return askUserValue(question, () -> { 
 			var userInput = this.scanner.next();
 			return TRUE_REGEXP.matcher(userInput).matches();
@@ -37,10 +38,20 @@ public final class UserInterface {
 		, " A boolean value is expected, !");
 	}
 
-	public int requestIntegerValue(String question) {
+	private int requestIntegerValue(String question) {
 		return askUserValue(question, this.scanner::nextInt, "An integer value is expected!");
 	}
 
-
-
+	public String requestUserValue(ValueType valueType, String question) {
+		switch (valueType) {
+		case BOOLEAN:
+			boolean boolValue = requestBooleanValue(question);
+			return String.valueOf(boolValue);
+		case INTEGER:
+			int intValue = requestIntegerValue(question);
+			return String.valueOf(intValue);
+		default:
+			throw new IllegalArgumentException("The type of the value for this fact is not supported!");
+		}
+	}
 }
